@@ -1531,7 +1531,7 @@ void processOT(const char *buf, int len){
       if (is_value_valid(OTdata, OTlookupitem) && settingMQTTenable ) {
         if(getMQTTConfigDone(OTdata.id)==false) {
           MQTTDebugTf("Need to set MQTT config for message %s (%d)\r\n", OTlookupitem.label, OTdata.id);
-          bool success = doAutoConfigureMsgid(OTdata.id);
+          bool success = doAutoConfigureMsgid(OTdata.id, NodeId);
           if(success) {
             MQTTDebugTf("Successfully sent MQTT config for message %s (%d)\r\n", OTlookupitem.label, OTdata.id);
             setMQTTConfigDone(OTdata.id);
@@ -2077,6 +2077,7 @@ void refreshpic(String filename, String version) {
           f.close();
           OTGWDebugTln(F("Update successful"));
         }
+        OTGWDebugTf("Update successful\n");
       }
     }
   }
