@@ -391,13 +391,16 @@ void sendDeviceInfo()
 //=======================================================================
 void sendDeviceTime() 
 {
-  char actTime[50];
+  char buf[50];
   
   sendStartJsonObj("devtime");
-  snprintf(actTime, 49, "%04d-%02d-%02d %02d:%02d:%02d", year(), month(), day()
-                                                       , hour(), minute(), second());
-  sendNestedJsonObj("dateTime", actTime); 
-  sendNestedJsonObj("epoch", (int)now());
+  time_t now = time(nullptr);
+  //Timezone based devtime
+  TimeZone myTz =  timezoneManager.createForZoneName(CSTR(settingNTPtimezone));
+  ZonedDateTime myTime = ZonedDateTime::forUnixSeconds64(now, myTz);
+  snprintf(buf, 49, "%04d-%02d-%02d %02d:%02d:%02d", myTime.year(), myTime.month(), myTime.day(), myTime.hour(), myTime.minute(), myTime.second());
+  sendNestedJsonObj("dateTime", buf); 
+  sendNestedJsonObj("epoch", (int)now);
   sendNestedJsonObj("message", sMessage);
 
   sendEndJsonObj("devtime");

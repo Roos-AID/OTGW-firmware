@@ -3,11 +3,11 @@
 <<<<<<< HEAD
 #define _VERSION_MINOR 9  
 #define _VERSION_PATCH 6
-#define _VERSION_BUILD 1777
-#define _VERSION_GITHASH "afe6b84"
+#define _VERSION_BUILD 1834
+#define _VERSION_GITHASH "55d7dc7"
 #define _VERSION_PRERELEASE beta
-#define _VERSION_DATE "24-12-2022"
-#define _VERSION_TIME "21:22:31"
+#define _VERSION_DATE "03-01-2023"
+#define _VERSION_TIME "14:11:05"
 #define _SEMVER_CORE "0.9.6"
 #define _SEMVER_BUILD "0.9.6+1777"
 #define _SEMVER_GITHASH "0.9.6+afe6b84"
