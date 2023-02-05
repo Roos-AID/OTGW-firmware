@@ -12,9 +12,11 @@ CFLAGS = $(CFLAGS_DEFAULT)
 CLI := arduino-cli
 PLATFORM := esp8266:esp8266
 CFGFILE := arduino-cli.yaml
-ESP8266URL := https://github.com/esp8266/Arduino/releases/download/2.7.4/package_esp8266com_index.json
+#ESP8266URL := https://github.com/esp8266/Arduino/releases/download/3.1.1/package_esp8266com_index.json
+ESP8266URL := https://github.com/esp8266/Arduino/releases/download/3.0.2/package_esp8266com_index.json
 LIBRARIES := libraries/WiFiManager libraries/ArduinoJson libraries/pubsubclient libraries/TelnetStream libraries/Acetime libraries/Time libraries/OneWire libraries/DallasTemperature libraries/U8g2
 BOARDS := arduino/package_esp8266com_index.json
+#mBOARDS := https://github.com/esp8266/Arduino/releases/download/3.0.2/package_esp8266com_index.json
 # PORT can be overridden by the environment or on the command line. E.g.:
 # export PORT=/dev/ttyUSB2; make upload, or: make upload PORT=/dev/ttyUSB2
 PORT ?= /dev/ttyUSB0
@@ -25,7 +27,7 @@ MKFS = $(wildcard arduino/packages/esp8266/tools/mklittlefs/*/mklittlefs)
 TOOLS = $(wildcard arduino/packages/esp8266/hardware/esp8266/*/tools)
 ESPTOOL = python3 $(TOOLS)/esptool/esptool.py
 BOARD = $(PLATFORM):d1_mini
-FQBN = $(BOARD):eesz=4M1M
+FQBN = $(BOARD):eesz=4M2M,xtal=160
 IMAGE = build/$(subst :,.,$(BOARD))/$(INO).bin
 FILESYS = filesys.bin
 
@@ -39,6 +41,10 @@ platform: $(BOARDS)
 
 clean:
 	find $(FSDIR) -name '*~' -exec rm {} +
+
+distclean: clean
+	rm *~
+	rm -rf arduino build libraries staging arduino-cli.yaml
 
 $(CFGFILE):
 	$(CLI) config init --dest-file $(CFGFILE)
@@ -69,7 +75,7 @@ libraries/pubsubclient:
 	$(CLI) lib install pubsubclient@2.8.0
 
 libraries/TelnetStream:
-	$(CLI) lib install TelnetStream@1.2.2
+	$(CLI) lib install TelnetStream@1.2.4
 
 libraries/Acetime:
 	$(CLI) lib install Acetime@2.0.1
@@ -113,11 +119,11 @@ upload: $(IMAGE)
 
 # Load only the file system into the device
 upload-fs: $(FILESYS)
-	$(ESPTOOL) --port $(PORT) -b $(BAUD) write_flash 0x300000 $(FILESYS)
+	$(ESPTOOL) --port $(PORT) -b $(BAUD) write_flash 0x200000 $(FILESYS)
 
 # Load both the sketch and the file system into the device
 install: $(IMAGE) $(FILESYS)
-	$(ESPTOOL) --port $(PORT) -b $(BAUD) write_flash 0x0 $(IMAGE) 0x300000 $(FILESYS)
+	$(ESPTOOL) --port $(PORT) -b $(BAUD) write_flash 0x0 $(IMAGE) 0x200000 $(FILESYS)
 
 .PHONY: binaries platform publish clean upload upload-fs install debug
 

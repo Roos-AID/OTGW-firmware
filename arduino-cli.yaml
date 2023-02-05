@@ -1,0 +1,24 @@
+board_manager:
+  additional_urls:
+  - https://github.com/esp8266/Arduino/releases/download/3.1.1/package_esp8266com_index.json
+daemon:
+  port: "50051"
+directories:
+  data: /Users/robroosm1/Documents/GitHub/OTGW-firmware/arduino
+  downloads: /Users/robroosm1/Documents/GitHub/OTGW-firmware/staging
+  user: /Users/robroosm1/Documents/GitHub/OTGW-firmware
+library:
+  enable_unsafe_install: true
+logging:
+  file: ""
+  format: text
+  level: info
+metrics:
+  addr: :9090
+  enabled: true
+output:
+  no_color: false
+sketch:
+  always_export_binaries: true
+updater:
+  enable_notification: true
