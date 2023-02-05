@@ -12,11 +12,13 @@ CFLAGS = $(CFLAGS_DEFAULT)
 CLI := arduino-cli
 PLATFORM := esp8266:esp8266
 CFGFILE := arduino-cli.yaml
+
 #ESP8266URL := https://github.com/esp8266/Arduino/releases/download/3.1.1/package_esp8266com_index.json
 ESP8266URL := https://github.com/esp8266/Arduino/releases/download/3.0.2/package_esp8266com_index.json
 LIBRARIES := libraries/WiFiManager libraries/ArduinoJson libraries/pubsubclient libraries/TelnetStream libraries/Acetime libraries/Time libraries/OneWire libraries/DallasTemperature libraries/U8g2
 BOARDS := arduino/package_esp8266com_index.json
 #mBOARDS := https://github.com/esp8266/Arduino/releases/download/3.0.2/package_esp8266com_index.json
+ 
 # PORT can be overridden by the environment or on the command line. E.g.:
 # export PORT=/dev/ttyUSB2; make upload, or: make upload PORT=/dev/ttyUSB2
 PORT ?= /dev/ttyUSB0
