@@ -8,4 +8,5 @@ package-lock.json
 Arduino/**
 libraries/**
 staging/**
+build/**
 arduino-cli.yaml
